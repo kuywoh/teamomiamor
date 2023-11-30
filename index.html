@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    .heart {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      background-color: #ff6b6b;
+      transform: rotate(-35deg);
+      animation: heartbeat 1s infinite;
+      cursor: pointer;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: #ff6b6b;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -50px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: 50px;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    /* Animation for the letter */
+    @keyframes letterAnimationIn {
+      0% {
+        transform: translate(-50%, -50%) scale(0);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.5);
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    @keyframes letterAnimationOut {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(0.5);
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(0);
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Add more styles as needed for your letter */
+    .letter {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      animation: letterAnimationIn 1s ease-in-out forwards;
+      background-color: #fff;
+      border: 2px solid #333;
+      padding: 20px;
+      max-width: 500px;
+      text-align: center;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .letter-hide {
+      animation: letterAnimationOut 1s ease-in-out forwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="heart" onclick="toggleLetter()"></div>
+  <div id="letter" class="hidden letter" onclick="toggleLetter()">
+    <img src="https://media.tenor.com/PNNHoG-7zuMAAAAC/peach-and.gif" alt="Tenor GIF">
+  </div>
+
+  <script>
+    let letterVisible = false;
+
+    function toggleLetter() {
+      const letter = document.getElementById('letter');
+
+      if (letterVisible) {
+        letter.classList.add('letter-hide');
+        letterVisible = false;
+      } else {
+        letter.classList.remove('hidden', 'letter-hide');
+        letterVisible = true;
+      }
+    }
+  </script>
+</body>
+</html>
