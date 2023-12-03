@@ -1,127 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f0f0f0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Te Amo, Mi Amor</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
 
-    .heart {
-      position: relative;
-      width: 100px;
-      height: 100px;
-      background-color: #ff6b6b;
-      transform: rotate(-35deg);
-      animation: heartbeat 1s infinite;
-      cursor: pointer;
-    }
+        #question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
 
-    .heart::before,
-    .heart::after {
-      content: '';
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      background-color: #ff6b6b;
-      border-radius: 50%;
-    }
+        #gifContainer {
+            max-width: 100%;
+            max-height: 60vh;
+            overflow: hidden;
+        }
 
-    .heart::before {
-      top: -50px;
-      left: 0;
-    }
+        #gif {
+            width: 100%;
+            height: auto;
+        }
 
-    .heart::after {
-      top: 0;
-      left: 50px;
-    }
+        .move-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-    @keyframes heartbeat {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.2);
-      }
-    }
+        #yesButton,
+        #noButton {
+            position: absolute;
+            margin-left: 10px;
+        }
 
-    /* Animation for the letter */
-    @keyframes letterAnimationIn {
-      0% {
-        transform: translate(-50%, -50%) scale(0);
-      }
-      50% {
-        transform: translate(-50%, -50%) scale(1.5);
-      }
-      100% {
-        transform: translate(-50%, -50%) scale(1);
-      }
-    }
+        #yesButton {
+            left: 30%;
+        }
 
-    @keyframes letterAnimationOut {
-      0% {
-        transform: translate(-50%, -50%) scale(1);
-      }
-      50% {
-        transform: translate(-50%, -50%) scale(0.5);
-      }
-      100% {
-        transform: translate(-50%, -50%) scale(0);
-      }
-    }
+        #noButton {
+            left: 70%;
+        }
 
-    .hidden {
-      display: none;
-    }
+        #heart {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            animation: heartbeat 1s infinite;
+        }
 
-    /* Add more styles as needed for your letter */
-    .letter {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      animation: letterAnimationIn 1s ease-in-out forwards;
-      background-color: #fff;
-      border: 2px solid #333;
-      padding: 20px;
-      max-width: 500px;
-      text-align: center;
-      font-size: 16px;
-      line-height: 1.5;
-    }
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
 
-    .letter-hide {
-      animation: letterAnimationOut 1s ease-in-out forwards;
-    }
-  </style>
+        #heart::before,
+        #heart::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 79px;
+            height: 120px;
+            border-radius: 50% 50% 0 0;
+            background: #e74c3c;
+        }
+
+        #heart::before {
+            left: 77.5px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        #heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        #loveText {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            color: white;
+            z-index: 1;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <div class="heart" onclick="toggleLetter()"></div>
-  <div id="letter" class="hidden letter" onclick="toggleLetter()">
-    <img src="https://media.tenor.com/PNNHoG-7zuMAAAAC/peach-and.gif" alt="Tenor GIF">
-  </div>
 
-  <script>
-    let letterVisible = false;
+<div id="question">Do you love me?</div>
 
-    function toggleLetter() {
-      const letter = document.getElementById('letter');
+<div id="gifContainer">
+    <img id="gif" src="https://media.tenor.com/A5VhCveZ_ygAAAAi/peach-and-goma-peach-goma.gif" alt="Tenor GIF">
+</div>
 
-      if (letterVisible) {
-        letter.classList.add('letter-hide');
-        letterVisible = false;
-      } else {
-        letter.classList.remove('hidden', 'letter-hide');
-        letterVisible = true;
-      }
+<button id="yesButton" class="move-button" onclick="moveButton('yesButton')">Yes</button>
+<button id="noButton" class="move-button" onclick="moveButton('noButton')">No</button>
+
+<script>
+    function moveButton(buttonId) {
+        var button = document.getElementById(buttonId);
+
+        if (buttonId === 'noButton') {
+            var buttonRect = button.getBoundingClientRect();
+            var maxX = window.innerWidth - buttonRect.width;
+            var maxY = window.innerHeight - buttonRect.height;
+            var newX = Math.min(Math.max(0, Math.floor(Math.random() * maxX)), maxX);
+            var newY = Math.min(Math.max(0, Math.floor(Math.random() * maxY)), maxY);
+            newX = Math.min(newX, maxX - buttonRect.width);
+            newY = Math.min(newY, maxY - buttonRect.height);
+            button.style.left = newX + 'px';
+            button.style.top = newY + 'px';
+        } else if (buttonId === 'yesButton') {
+            document.body.innerHTML = '';
+
+            var heart = document.createElement('div');
+            heart.id = 'heart';
+
+            var loveText = document.createElement('div');
+            loveText.id = 'loveText';
+            loveText.textContent = 'I Love You';
+            heart.appendChild(loveText);
+
+            document.body.appendChild(heart);
+        }
     }
-  </script>
+</script>
+
 </body>
 </html>
