@@ -1,0 +1,85 @@
+.center-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust the height as needed */
+}
+
+.overlay {
+    position: absolute;
+    background: rgba(0, 0, 0, 1); /* Semi-transparent black background */
+    width: 700px; /* Adjust the width of the rectangle */
+    height: 600px; /* Adjust the height of the rectangle */
+    border-radius: 10px; /* Adjust the border radius as needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2; /* Set the z-index to be in front */
+    cursor: pointer; /* Add cursor pointer on hover to indicate it's clickable */
+}
+
+.click-me-text {
+    font-size: 24px; /* Adjust the font size as needed */
+    color: white; /* Text color */
+    font-weight: bold; /* Optional: Adjust the font weight */
+}
+
+.flower {
+    position: relative;
+    width: 280px;
+    height: 100px;
+    background: purple;
+    border-radius: 50px;
+    z-index: 1; /* Set the z-index to be behind the overlay */
+}
+
+.flower::before,
+.flower::after {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 100px;
+    background: purple;
+    border-radius: 50px;
+}
+
+.flower::before {
+    transform: rotate(60deg);
+}
+
+.flower::after {
+    transform: rotate(-60deg);
+}
+
+.center-circle {
+    width: 50px;
+    height: 50px;
+    background: orange;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1; /* Set the z-index to be behind the overlay */
+}
+
+.stem {
+    position: absolute;
+    width: 20px;
+    height: 250px;
+    background: green;
+    top: 100px;
+    left: 130px;
+}
+
+.text-container {
+    margin-left: 20px; /* Adjust the margin to separate the flower and the text */
+}
+
+.happy-text {
+    font-size: 24px; /* Adjust the font size as needed */
+    color: white; /* Text color */
+    font-weight: bold; /* Optional: Adjust the font weight */
+    text-shadow: 2px 2px 4px black; /* Add text shadow for stroke effect */
+}
